@@ -2,7 +2,7 @@
 class Err extends Error{
     constructor(statusCode,message){
         super()
-        this.errInfo=message
+        this.message=message
         this.statusCode=statusCode
     }
 }

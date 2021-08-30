@@ -12,7 +12,7 @@ exports.getStations = async (req, res, next) => {
   let stations, totalstation;
   //   console.log('object1')
   try {
-    stations = await Station.find();
+    stations = await Station.find().select('name').exec();
   } catch (error) {
     return next(error);
   }
@@ -28,33 +28,9 @@ exports.getStations = async (req, res, next) => {
 };
 exports.addStation = async (req, res, next) => {
   const { newStation } = req.body;
-  let stations = [
-    'delhi',
-    'mumbai',
-    'pune',
-    'goa',
-    'calcutta',
-    'surat',
-    'vishakhapatnam',
-    'guwahati',
-    'bhopal',
-    'gwalior',
-    'manali',
-    'gurugram',
-    'jaipur',
-    'ahmedabad',
-    'lucknow',
-    'chandigarh',
-    'bangalore',
-    'hyderabad',
-  ].map((v) => ({ name: v }));
-  // console.log(newStation)
+
   let addedStation;
-  //   try {
-  //     addedStation= await Station.countDocuments({ name:newStation });
-  //   } catch (error) {
-  //     return next(error);
-  //   }
+
   try {
     addedStation = await Station.insertMany(stations);
   } catch (error) {
@@ -66,48 +42,7 @@ exports.addStation = async (req, res, next) => {
 let today2 = new Date('2021-08-30T04:22:23');
 exports.addSchedule = async (req, res, next) => {
   let addedSchedule;
-  let newSchedule = [
-    {
-      from: '612b47163e25b01552e5485c',
-      to: '612b47163e25b01552e54866',
-      departureTime: new Date('2021-08-30T20:22:23'),
-      arrivalTime: new Date('2021-08-31T08:22:23'),
-      bus: '612b5f15b21d620a8c80cc06',
-      fare: 200,
-      discount: 10,
-      emptySeats: 30,
-    },
-    {
-      from: '612b47163e25b01552e5485c',
-      to: '612b47163e25b01552e54866',
-      departureTime: new Date('2021-08-31T19:00:00'),
-      arrivalTime: new Date('2021-09-01T04:22:23'),
-      bus: '612b5f15b21d620a8c80cc07',
-      fare: 240,
-      discount: 25,
-      emptySeats: 20,
-    },
-    {
-      from: '612b47163e25b01552e5485c',
-      to: '612b47163e25b01552e54866',
-      departureTime: new Date('2021-08-30T21:22:23'),
-      arrivalTime: new Date('2021-08-31T10:22:23'),
-      bus: '612b5f15b21d620a8c80cbf6',
-      fare: 500,
-      discount: 15,
-      emptySeats: 20,
-    },
-    {
-      from: '612b47163e25b01552e5485c',
-      to: '612b47163e25b01552e54866',
-      departureTime: new Date('2021-08-29T18:22:23'),
-      arrivalTime: new Date('2021-08-30T09:22:23'),
-      bus: '612b5f15b21d620a8c80cbfc',
-      fare: 400,
-      discount: 5,
-      emptySeats: 24,
-    },
-  ];
+
   try {
     addedSchedule = await Schedule.insertMany(newSchedule);
   } catch (error) {
@@ -117,22 +52,6 @@ exports.addSchedule = async (req, res, next) => {
   res.status(201).json({ data: addedSchedule, message: 'added a new station' });
 };
 exports.addAgency = async (req, res, next) => {
-  let addedSchedule = [
-    'gogoBus',
-    'Mountain Travels',
-    'Rao Travel Heights',
-    'Rocket Bus',
-    'zingbus',
-    'Indo Express',
-    'SRT Volvo Bus',
-    'Just Go Holiday',
-    'BFC Holidays',
-    'Travel Hub',
-    'Shubham Holiday',
-    'Shan E India',
-    'KTY BUS SERVICE',
-    'HRTC',
-  ].map((v) => ({ name: v }));
   //   try {
   //     addedSchedule= await Station.countDocuments({ name:newStation });
   //   } catch (error) {
@@ -147,28 +66,6 @@ exports.addAgency = async (req, res, next) => {
   res.status(201).json({ data: addedSchedule, message: 'added a new station' });
 };
 exports.addbusType = async (req, res, next) => {
-  let addedSchedule = [
-    {
-      name: 'A',
-      ac: true,
-      sleeper: false,
-    },
-    {
-      name: 'B',
-      ac: true,
-      sleeper: true,
-    },
-    {
-      name: 'C',
-      ac: false,
-      sleeper: true,
-    },
-    {
-      name: 'D',
-      ac: false,
-      sleeper: false,
-    },
-  ];
   //   try {
   //     addedSchedule= await Station.countDocuments({ name:newStation });
   //   } catch (error) {
@@ -183,88 +80,6 @@ exports.addbusType = async (req, res, next) => {
   res.status(201).json({ data: addedSchedule, message: 'added a new station' });
 };
 exports.addbus = async (req, res, next) => {
-  let addedSchedule = [
-    {
-      agency: '612b5a6dd661b2564671d2a9',
-      bustype: '612b5c79fad0cc8805ee0be8',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2a9',
-      bustype: '612b5c79fad0cc8805ee0be8',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2a9',
-      bustype: '612b5c79fad0cc8805ee0be8',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2aa',
-      bustype: '612b5c79fad0cc8805ee0be8',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2aa',
-      bustype: '612b5c79fad0cc8805ee0be8',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2aa',
-      bustype: '612b5c79fad0cc8805ee0be9',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2ab',
-      bustype: '612b5c79fad0cc8805ee0be9',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2ab',
-      bustype: '612b5c79fad0cc8805ee0be9',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2ab',
-      bustype: '612b5c79fad0cc8805ee0be9',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2ac',
-      bustype: '612b5c79fad0cc8805ee0be9',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2ac',
-      bustype: '612b5c79fad0cc8805ee0bea',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2ac',
-      bustype: '612b5c79fad0cc8805ee0bea',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2ad',
-      bustype: '612b5c79fad0cc8805ee0bea',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2ad',
-      bustype: '612b5c79fad0cc8805ee0bea',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2ad',
-      bustype: '612b5c79fad0cc8805ee0beb',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2ae',
-      bustype: '612b5c79fad0cc8805ee0beb',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2ae',
-      bustype: '612b5c79fad0cc8805ee0beb',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2ae',
-      bustype: '612b5c79fad0cc8805ee0beb',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2af',
-      bustype: '612b5c79fad0cc8805ee0be9',
-    },
-    {
-      agency: '612b5a6dd661b2564671d2af',
-      bustype: '612b5c79fad0cc8805ee0be9',
-    },
-  ];
   //   try {
   //     addedSchedule= await Station.countDocuments({ name:newStation });
   //   } catch (error) {
@@ -322,42 +137,15 @@ exports.getAllBookings = async (req, res, next) => {
 
   res.status(201).json({ data: addedSchedule, message: 'added a new station' });
 };
-let tickets = [
-  {
-    journey: '612b6d5ccab3c2297001b46c',
-    seat: 12,
-    bearer: {
-      name: 'raj',
-      age: 12,
-    },
-    bookedby: '612a1b5dde000afaea995fb0',
-  },
-  {
-    journey: '612b6d5ccab3c2297001b46e',
-    seat: 12,
-    bearer: {
-      name: 'mark',
-      age: 23,
-    },
-    bookedby: '612a178eb2f8cd43c43230b7',
-  },
-  {
-    journey: '612b6d5ccab3c2297001b46f',
-    seat: 12,
-    bearer: {
-      name: 'david',
-      age: 56,
-    },
-    bookedby: '612a178eb2f8cd43c43230b7',
-  },
-];
+
 exports.searchBuses = async (req, res, next) => {
-  let { from, to, on } = req.query;
+  let { from, to, on, ac, sleeper } = req.query;
+
   from = '612b47163e25b01552e5485c';
   to = '612b47163e25b01552e54866';
   let departureTime = new Date(on),
     tempTime = new Date(departureTime.getTime() + 60 * 60 * 24 * 1000);
-//   console.log(tempTime);
+  //   console.log(tempTime);
   let results;
   try {
     results = await Schedule.find({
@@ -365,10 +153,230 @@ exports.searchBuses = async (req, res, next) => {
       to,
       departureTime: { $gte: departureTime, $lt: tempTime },
     })
-      .select('departureTime')
+      .populate({
+        path: 'bus',
+        populate: [
+          {
+            path: 'bustype',
+            select: ['ac', 'sleeper'],
+          },
+          {
+            path: 'agency',
+          },
+        ],
+      })
+      .lean()
       .exec();
   } catch (error) {
     return next(error);
   }
+  if (ac) {
+    results = results.filter((v) => {
+      return v.bus.bustype.ac === true;
+    });
+  }
+  if (sleeper) {
+    results = results.filter((v) => {
+      return v.bus.bustype.sleeper === true;
+    });
+  }
+  //   console.log(!ac);
+
   res.status(200).json({ results });
 };
+
+// let newSchedule = [
+//   {
+//     from: '612b47163e25b01552e5485c',
+//     to: '612b47163e25b01552e54866',
+//     departureTime: new Date('2021-08-30T20:22:23'),
+//     arrivalTime: new Date('2021-08-31T08:22:23'),
+//     bus: '612b5f15b21d620a8c80cc06',
+//     fare: 200,
+//     discount: 10,
+//     emptySeats: 30,
+//   },
+//   {
+//     from: '612b47163e25b01552e5485c',
+//     to: '612b47163e25b01552e54866',
+//     departureTime: new Date('2021-08-31T19:00:00'),
+//     arrivalTime: new Date('2021-09-01T04:22:23'),
+//     bus: '612b5f15b21d620a8c80cc07',
+//     fare: 240,
+//     discount: 25,
+//     emptySeats: 20,
+//   },
+//   {
+//     from: '612b47163e25b01552e5485c',
+//     to: '612b47163e25b01552e54866',
+//     departureTime: new Date('2021-08-30T21:22:23'),
+//     arrivalTime: new Date('2021-08-31T10:22:23'),
+//     bus: '612b5f15b21d620a8c80cbf6',
+//     fare: 500,
+//     discount: 15,
+//     emptySeats: 20,
+//   },
+//   {
+//     from: '612b47163e25b01552e5485c',
+//     to: '612b47163e25b01552e54866',
+//     departureTime: new Date('2021-08-29T18:22:23'),
+//     arrivalTime: new Date('2021-08-30T09:22:23'),
+//     bus: '612b5f15b21d620a8c80cbfc',
+//     fare: 400,
+//     discount: 5,
+//     emptySeats: 24,
+//   },
+// ];
+
+// let tickets = [
+//   {
+//     journey: '612b6d5ccab3c2297001b46c',
+//     seat: 12,
+//     bearer: {
+//       name: 'raj',
+//       age: 12,
+//     },
+//     bookedby: '612a1b5dde000afaea995fb0',
+//   },
+//   {
+//     journey: '612b6d5ccab3c2297001b46e',
+//     seat: 12,
+//     bearer: {
+//       name: 'mark',
+//       age: 23,
+//     },
+//     bookedby: '612a178eb2f8cd43c43230b7',
+//   },
+//   {
+//     journey: '612b6d5ccab3c2297001b46f',
+//     seat: 12,
+//     bearer: {
+//       name: 'david',
+//       age: 56,
+//     },
+//     bookedby: '612a178eb2f8cd43c43230b7',
+//   },
+// ];
+
+// let addedSchedule = [
+//   {
+//     agency: '612b5a6dd661b2564671d2a9',
+//     bustype: '612b5c79fad0cc8805ee0be8',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2a9',
+//     bustype: '612b5c79fad0cc8805ee0be8',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2a9',
+//     bustype: '612b5c79fad0cc8805ee0be8',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2aa',
+//     bustype: '612b5c79fad0cc8805ee0be8',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2aa',
+//     bustype: '612b5c79fad0cc8805ee0be8',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2aa',
+//     bustype: '612b5c79fad0cc8805ee0be9',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2ab',
+//     bustype: '612b5c79fad0cc8805ee0be9',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2ab',
+//     bustype: '612b5c79fad0cc8805ee0be9',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2ab',
+//     bustype: '612b5c79fad0cc8805ee0be9',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2ac',
+//     bustype: '612b5c79fad0cc8805ee0be9',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2ac',
+//     bustype: '612b5c79fad0cc8805ee0bea',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2ac',
+//     bustype: '612b5c79fad0cc8805ee0bea',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2ad',
+//     bustype: '612b5c79fad0cc8805ee0bea',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2ad',
+//     bustype: '612b5c79fad0cc8805ee0bea',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2ad',
+//     bustype: '612b5c79fad0cc8805ee0beb',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2ae',
+//     bustype: '612b5c79fad0cc8805ee0beb',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2ae',
+//     bustype: '612b5c79fad0cc8805ee0beb',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2ae',
+//     bustype: '612b5c79fad0cc8805ee0beb',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2af',
+//     bustype: '612b5c79fad0cc8805ee0be9',
+//   },
+//   {
+//     agency: '612b5a6dd661b2564671d2af',
+//     bustype: '612b5c79fad0cc8805ee0be9',
+//   },
+// ];
+
+// let addedSchedule = [
+//   'gogoBus',
+//   'Mountain Travels',
+//   'Rao Travel Heights',
+//   'Rocket Bus',
+//   'zingbus',
+//   'Indo Express',
+//   'SRT Volvo Bus',
+//   'Just Go Holiday',
+//   'BFC Holidays',
+//   'Travel Hub',
+//   'Shubham Holiday',
+//   'Shan E India',
+//   'KTY BUS SERVICE',
+//   'HRTC',
+// ].map((v) => ({ name: v }));
+
+// let addedSchedule = [
+//   {
+//     name: 'A',
+//     ac: true,
+//     sleeper: false,
+//   },
+//   {
+//     name: 'B',
+//     ac: true,
+//     sleeper: true,
+//   },
+//   {
+//     name: 'C',
+//     ac: false,
+//     sleeper: true,
+//   },
+//   {
+//     name: 'D',
+//     ac: false,
+//     sleeper: false,
+//   },
+// ];

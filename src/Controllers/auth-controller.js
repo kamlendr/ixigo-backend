@@ -12,7 +12,7 @@ exports.signup = async (req, res, next) => {
     return next(new Err(422, errors));
   }
 
-  const { email, password,name } = req.body;
+  const { email, password, name } = req.body;
   let user;
 
   try {
@@ -31,7 +31,7 @@ exports.signup = async (req, res, next) => {
     return next(new Error(error));
   }
   try {
-    user = await User.create({ name,email, password: hashedPassword });
+    user = await User.create({ name, email, password: hashedPassword });
     // user = new User({ email, password });
     // await user.save();
   } catch (error) {
@@ -49,12 +49,16 @@ exports.signup = async (req, res, next) => {
     return next(new Error(error));
   }
 
-  res.status(200).json({ token, message: 'registration success.' });
+  res
+    .status(200)
+    .json({
+      data: { token, userId: user.id, email: user.email, name: user.name },
+      message: 'Registration success.',
+    });
 };
 
 exports.login = async (req, res, next) => {
   const errors = validationResult(req);
-
   if (!errors.isEmpty()) {
     return next(new Err(422, errors));
   }
@@ -67,8 +71,9 @@ exports.login = async (req, res, next) => {
     return next(error);
   }
   if (!user) {
-    return next(new Error('No such user exists.'));
+    return next(new Err(400, 'No such user exists.'));
   }
+  console.log(email);
   let correctPassword = false;
   try {
     correctPassword = await compare(password, user.password);
@@ -89,5 +94,10 @@ exports.login = async (req, res, next) => {
     return next(new Error(error));
   }
 
-  res.status(200).json({ token, message: 'Login Success,' });
+  res
+    .status(200)
+    .json({
+      data: { token, userId: user.id, email: user.email, name: user.name },
+      message: 'Login Success,',
+    });
 };
